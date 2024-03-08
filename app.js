@@ -1,91 +1,32 @@
-const list_menu = [
-    {
-        "title": "Home",
-        "value": "./index.html"
-    },
-    {
-        "title": "About",
-        "value": "./about.html"
-    },
-    {
-        "title": "Tutorial",
-        "value": ".#",
-        "submenu": [
-            {
-                title: "Thủ thuật",
-                value: "#"
-            },
-            {
-                title: "Kiến Thức",
-                value: "#"
-            },
-            {
-                title: "Đồ họa",
-                value: "#",
-                submenu: [
-                    {
-                        title: "Audition",
-                        value: "#"
-                    },
-                    {
-                        title: "Illustrator",
-                        value: "#"
-                    },
-                    {
-                        title: "After Effect",
-                        value: "#"
-                    },
-                    {
-                        title: "Premiere",
-                        value: "#"
-                    }
-                ]
-            },
-            {
-                title: "Lập trình",
-                value: "#"
-            }
-        ]
-    },
-    {
-        "title": "Contact",
-        "value": "./contact.html"
-    },
-    {
-        "title": "Login",
-        "value": "./login.html"
-    }
-];
+const PDFDocument = require('pdfkit');
+const express = require("express");
+const app = express();
 
-const list = document.querySelector(".list-menu");
-let count = 0;
-const showNavbar = (listItems, partentItem) => {
-    listItems.forEach(({ title, value, submenu = [] }) => {
-        const el = document.createElement('li');
-        const ahref = document.createElement('a');
-        ahref.textContent = title;
-        ahref.href = value;
-        el.appendChild(ahref);
+// Define route to generate and download PDF
+app.get('/download-pdf', (req, res) => {
+    let doc = new PDFDocument();
+    
+    res.setHeader('Content-Type', 'application/pdf');
+    res.setHeader('Content-Disposition', 'attachment; filename=example.pdf');
+    doc.pipe(res);
 
-        if (submenu?.length) {
-            const subList = document.createElement('ul');
-            subList.className = "sub_list";
-            el.className = 'special_sub_list';
-            
-            if(count) {
-                el.classList = 'special_sub_list art'
-            }
-
-            el.appendChild(subList);
-            
-            count++;
-            showNavbar(submenu, subList);
+    let data = [
+        {
+            name: "vono",
+            age: 23,
+            email: "1412"
         }
+    ];
 
-        partentItem.appendChild(el);
+    data.forEach(entry => {
+        doc.text(`Name: ${entry.name}`);
+        doc.text(`Age: ${entry.age}`);
+        doc.text(`Email: ${entry.email}`);
+        doc.moveDown(); // Move down for next entry
     });
 
-}
+    doc.end();
+});
 
-showNavbar(list_menu, list);
-// handle style css
+// Start server
+app.listen(3000, () => console.log('Server is running on port 3000'));
