@@ -38,5 +38,5 @@ console.log("stack_push: ", initStack);
 initStack.pop(1);
 console.log("stack_pop: ", initStack);
 
-initStack.push(2);
-console.log("check empty: ", initStack.isEmpty());
+initStack.push(2)
+console.log("check empty: ", initStack.isEmpty());  
