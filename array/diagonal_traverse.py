@@ -1,27 +1,18 @@
-def checkDiagonal(num):
-    k = 0;
-    m = n = len(num) - 1;
-    arr = []
+def diagonal_traverse(mat):
+    row = len(mat);
+    col = len(mat[0]);
 
-    for k in range(m):
-        i = k;
-        j = 0;
-
-        while i >= 0:
-            arr.append(num[i][j])
-            i -= 1;
-            j += 1;
-
-    for k in range(n + 1):
-        i = m;
-        j = k;
-    
-        while j <= m :
-            arr.append(num[i][j])
-            i -= 1;
-            j += 1;
-    return arr;
+    result = [];
+   
+    for s in range(row + col - 1):
+        if s % 2 == 0:
+            print(min(s, row - 1), max(-1, s - col), row)
+            for i in range(min(s, row - 1), max(-1, s - col), -1):  ## min(2), max(0), -1
+                  result.append(mat[i][s - i])
+        else:
+            for i in range(max(0, s - col + 1), min(row, s + 1)): ## max(1), min(3)
+                  result.append(mat[i][s - i])
+    return result;
 
 
-print(checkDiagonal([[1, 2, 3], [4, 5, 6], [7, 8, 9]]))
-
+print(diagonal_traverse([[1, 2, 3], [4, 5, 6], [7, 8, 9]]))
