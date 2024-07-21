@@ -12,7 +12,7 @@ df = pd.DataFrame(columns = ["Film", "Year", "Rotten Tomatoes' Top 100"])
 count = 0
 
 html_page = rq.get(url).text
-data = BeautifulSoup(html_page, "html.parse")
+data = BeautifulSoup(html_page, "html.parser")
 
 table = data.find_all("table")
 rows = table[0].find_all("tr")
@@ -28,7 +28,7 @@ for row in rows:
                 "Rotten Tomatoes' Top 100": col[3].contents[0]
             }
 
-            df1 = df.DataFrame(data_dict, index = [0])
+            df1 = pd.DataFrame(data_dict, index = [0])
             df = df.concat([df, df1], ignore_index = True)
     else:
         break
