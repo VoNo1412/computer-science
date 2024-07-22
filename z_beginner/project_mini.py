@@ -22,7 +22,7 @@ conn = sqlite3.connect(db_name)
 
 # Step 1: Extract data from url web
 def extract_data():
-    if response.status == 200:
+    if response.status_code == 200:
         data = BeautifulSoup(response.text, "html.parser")
         attribute_list = ["Country", "GDP_USD_billion"]
         df = pd.DataFrame(columns = attribute_list)
@@ -41,12 +41,14 @@ def extract_data():
         return df;
     else:
         logger_money("Failed to retrieve data from the URL")
+        print("Failed to retrieve data from the URL")
         return;
 
 # Step 2: Transform Data
 def transform_data(df):
     df = df.drop(index = 0)
-    df["GDP_USD_billion"] = round(df["GDP_USD_billion"].replace(',', '', regex=True).apply(pd.to_numeric, errors='coerce').fillna(0), 2)
+    df["GDP_USD_billion"] = df["GDP_USD_billion"].replace(',', '', regex=True).apply(pd.to_numeric, errors='coerce').fillna(0)
+    df["GDP_USD_billion"] = round(df['GDP_USD_billion'] / 1000, 2)
     return df;
 
 # Step 3: Loaded data into json, database, logger data
@@ -62,18 +64,17 @@ def logger_money(message):
         f.write(date + "," + message + "\n")
 
 # Step 4: Query Data
-def query_database():
-    query_statement = f"select * from {table_name} where GDP_USD_billion > 100"
+def query_database(query_statement):
     query_output = pd.read_sql(query_statement, conn)
 
     print("result_query: ", query_output)
+    return query_output
 
 
 try:
     logger_money("RUN ETL")
     logger_money("Extracted start")
     raw_data = extract_data()
-    raw_data = None
     logger_money("Extracted end")
     logger_money("Transformed start")
     transformed_data = transform_data(raw_data)
@@ -85,11 +86,11 @@ try:
     logger_money("DONE ETL")
 
     logger_money("Query started")
-    query_database()
+    query_database(f"select * from {table_name} where GDP_USD_billion >= 100")
     logger_money("Query end")
 except Exception as e:
     logger_money(f"ETL process failed: {e}")
-    print('Raw data not exists')
+    print('Raw data not exists', e)
 finally:
     conn.close()
 
