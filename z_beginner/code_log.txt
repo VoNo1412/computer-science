@@ -1,0 +1,26 @@
+2024-07-22T20:55:09,RUN ETL
+2024-07-22T20:55:09,Extract started
+2024-07-22T20:55:09,Extracted end
+2024-07-22T20:55:09,Transform started
+2024-07-22T20:55:12,Transform end
+2024-07-22T20:55:52,RUN ETL
+2024-07-22T20:55:52,Extract started
+2024-07-22T20:55:52,Extracted end
+2024-07-22T20:55:52,Transform started
+2024-07-22T20:55:54,Transform end
+2024-07-22T20:56:04,RUN ETL
+2024-07-22T20:56:04,Extract started
+2024-07-22T20:56:04,Extracted end
+2024-07-22T20:56:04,Transform started
+2024-07-22T20:56:07,Transform end
+2024-07-22T21:02:55,RUN ETL
+2024-07-22T21:02:55,Extract started
+2024-07-22T21:02:55,Extracted end
+2024-07-22T21:02:55,Transform started
+2024-07-22T21:02:57,Transform end
+2024-07-22T21:02:57,Loaded csv started
+2024-07-22T21:02:57,Loaded csv end
+2024-07-22T21:02:57,Loaded to database started
+2024-07-22T21:02:57,Loaded to database end
+2024-07-22T21:02:57,Query started
+2024-07-22T21:02:57,Query end
