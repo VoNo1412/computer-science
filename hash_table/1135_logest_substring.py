@@ -1,6 +1,4 @@
 def logngestSubstring(s):
-    # abcabcbb
-
     last_seen = {}
     start = 0
     max_length = 0
