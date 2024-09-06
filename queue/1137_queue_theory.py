@@ -10,7 +10,7 @@ class MyCircularQueue(object):
     def enQueue(self, value):
         if self.isFull():
             return False  # Return False if the queue is full
-
+        ## 2 +1 1 % 3 => rear = 0
         self.rear = (self.rear + 1) % self.capacity
         self.queue[self.rear] = value
         self.size += 1
