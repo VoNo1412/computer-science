@@ -13,6 +13,9 @@ var twoSum = function(nums, target) {
         }
         map[x] = i
     })
+
+    let newD = new Set([1, 2, 3]);
+    console.log(newD)
     return result
 };
 
