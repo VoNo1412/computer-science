@@ -1,3 +1,0 @@
-# Numpy
-    What is numpy?
-    
